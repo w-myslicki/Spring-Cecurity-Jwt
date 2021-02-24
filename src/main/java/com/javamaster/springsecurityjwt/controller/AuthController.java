@@ -18,7 +18,7 @@ public class AuthController {
     private JwtProvider jwtProvider;
 
     @PostMapping("/register")
-    public String registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
+    public String registerUser(@Valid @RequestBody  RegistrationRequest registrationRequest) {
         UserEntity u = new UserEntity();
         u.setPassword(registrationRequest.getPassword());
         u.setLogin(registrationRequest.getLogin());
