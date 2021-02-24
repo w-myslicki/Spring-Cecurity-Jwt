@@ -4,11 +4,10 @@ import com.javamaster.springsecurityjwt.config.jwt.JwtProvider;
 import com.javamaster.springsecurityjwt.entity.UserEntity;
 import com.javamaster.springsecurityjwt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -20,12 +19,17 @@ public class AuthController {
     private JwtProvider jwtProvider;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
-        UserEntity u = new UserEntity();
-        u.setPassword(registrationRequest.getPassword());
-        u.setLogin(registrationRequest.getLogin());
-        userService.saveUser(u);
-        return new ResponseEntity<>("Success!", HttpStatus.OK);
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
+        try {
+            UserEntity u = new UserEntity();
+            u.setPassword(registrationRequest.getPassword());
+            u.setLogin(registrationRequest.getLogin());
+            userService.saveUser(u);
+            return new ResponseEntity<>("Success!",HttpStatus.OK);
+
+        } catch (Exception exception) {
+            return new ResponseEntity<>("Error: "+exception,HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/auth")
