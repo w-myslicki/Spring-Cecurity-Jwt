@@ -1,7 +1,7 @@
 package com.javamaster.springsecurityjwt.config.jwt;
 
 import com.javamaster.springsecurityjwt.config.CustomUserDetails;
-import com.javamaster.springsecurityjwt.config.CustomUserDetailsService;
+import com.javamaster.springsecurityjwt.config.CustomUserDetailsServicE;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,7 +28,7 @@ public class JwtFilter extends GenericFilterBean {
     private JwtProvider jwtProvider;
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private CustomUserDetailsServicE customUserDetailsService;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

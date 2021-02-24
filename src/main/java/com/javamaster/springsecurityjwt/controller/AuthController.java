@@ -4,6 +4,8 @@ import com.javamaster.springsecurityjwt.config.jwt.JwtProvider;
 import com.javamaster.springsecurityjwt.entity.UserEntity;
 import com.javamaster.springsecurityjwt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,12 +20,12 @@ public class AuthController {
     private JwtProvider jwtProvider;
 
     @PostMapping("/register")
-    public String registerUser(@Valid @RequestBody  RegistrationRequest registrationRequest) {
+    public ResponseEntity<String> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
         UserEntity u = new UserEntity();
         u.setPassword(registrationRequest.getPassword());
         u.setLogin(registrationRequest.getLogin());
         userService.saveUser(u);
-        return "OK";
+        return new ResponseEntity<>("Success!", HttpStatus.OK);
     }
 
     @PostMapping("/auth")
