@@ -44,6 +44,9 @@ public class AuthController {
         return new AuthResponse(token);
     }
 
+
+    //--------------------------Simple core controllers-----------------------
+
     @GetMapping("/admin/get")
     public String getAdmin() {
         return "Hi admin";
